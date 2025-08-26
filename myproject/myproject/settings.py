@@ -11,9 +11,17 @@ https://docs.djangoproject.com/en/5.2/ref/settings/
 """
 
 from pathlib import Path
-
+import os 
+from dotenv import load_dotenv
+from pathlib import Path
+load_dotenv()
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
+
+MEDIA_URL = '/media/'   # الرابط اللي هتفتح منه الصور في المتصفح
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')  # المجلد اللي هيتخزن فيه الصور
+AUTH_USER_MODEL = "Crowd_Funding.CustomUser"  # عشان نستخدم الموديل بتاع المستخدم المخصص بدل الموديل الافتراضي بتاع Django
+
 
 
 # Quick-start development settings - unsuitable for production
@@ -37,6 +45,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'Crowd_Funding',
 ]
 
 MIDDLEWARE = [
@@ -74,8 +83,12 @@ WSGI_APPLICATION = 'myproject.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': os.getenv("DB_NAME"),          # your database name
+        'USER': os.getenv("DB_USER"),          # your database user
+        'PASSWORD': os.getenv("DB_PASSWORD"),  # your database password
+        'HOST': os.getenv("DB_HOST", "localhost"),  # your database host, default to localhost
+        'PORT': os.getenv("DB_PORT", "5432"),      # your database port, default to 5432
     }
 }
 
