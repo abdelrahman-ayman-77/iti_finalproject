@@ -1,8 +1,13 @@
 from django.shortcuts import redirect, render
 from django.http import HttpResponse
-from .forms import CustomUserForm
+from .forms import CustomUserForm ########
 from .models import Project
 
+from django.contrib.auth import authenticate, login
+from django.contrib import messages
+from django.contrib.auth.models import User
+from django.contrib.auth import get_user_model
+User = get_user_model()
 
 # Create your views here.
 
@@ -11,7 +16,34 @@ def home(request):
     return render(request,'pages/pro.html')
 
 def login_view(request):
-    return render(request,'pages/login.html')
+    if request.method == "POST":
+        email = request.POST.get("email")
+        password = request.POST.get("password")
+
+        try:
+            user_obj = User.objects.get(email=email)
+            username = user_obj.username
+        except User.DoesNotExist:
+            username = None
+
+        if username:
+            user = authenticate(request, username=username, password=password)
+            if user is not None:
+                login(request, user)
+                messages.success(request, f"Welcome {user.username} 👋")
+                return redirect("home")
+        
+        messages.error(request, "Invalid email or password!")
+
+    return render(request, "pages/login.html")
+
+
+
+
+
+
+
+
 def register(request):
     error_message = None
     if request.method == "POST":
