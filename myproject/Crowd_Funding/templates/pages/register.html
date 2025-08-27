@@ -18,33 +18,19 @@
     </div>
 
     <div class="right-panel">
-      <form class="register-form">
-        <h2 id="RA">Register Account</h2>
+      <form method="post" action="{% url 'register' %}" class="register-form" enctype="multipart/form-data">
+    {% csrf_token %}
+        {{ form.as_p }}
+    
+     <label for="confirm_password">confirm-password:</label>
+    <input type="password" id="confirm_password" name="confirm_password" required>
 
-        <label for="email">Email</label>
-        <input type="email" id="email" name="email" required>
-
-        <label for="first-name">First Name</label>
-        <input type="text" id="first-name" name="first-name" required>
-
-        <label for="last-name">Last Name</label>
-        <input type="text" id="last-name" name="last-name" required>
-
-        <label for="password">Password</label>
-        <input type="password" id="password" name="password" required>
-
-        <label for="confirm-password">Re-enter Password</label>
-        <input type="password" id="confirm-password" name="confirm-password" required>
-
-        <label for="phone">Phone</label>
-        <input type="tel" id="phone" name="phone" required>
-
-        <label for="file">Upload Profile Picture</label>
-        <input type="file" id="file" name="file">
-
-        <button type="submit" class="register-btn">Register</button>
-
-      </form>
+    {% if error_message %}
+        <p style="color: red;">{{ error_message }}</p>
+    {% endif %}
+    <button type="submit" class="register-btn">Register</button>
+</form>
+      
     </div>
   </div>
 </body>

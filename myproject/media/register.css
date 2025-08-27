@@ -38,6 +38,7 @@ body {
   align-items: center;
   justify-content: center;
   padding: 30px;
+  margin-top: 150px;
 }
 
 .left-panel img {
@@ -54,6 +55,8 @@ body {
 .right-panel {
   flex: 1;
   padding: 40px;
+  margin-top: 150px;
+  
 }
 
 .register-form h2 {
