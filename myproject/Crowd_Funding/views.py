@@ -9,6 +9,10 @@ from django.contrib.auth.models import User
 from django.contrib.auth import get_user_model
 User = get_user_model()
 
+
+from django.contrib.auth import logout
+from django.contrib.auth.decorators import login_required
+
 # Create your views here.
 
 
@@ -68,3 +72,14 @@ def register(request):
         "pages/register.html", 
         {"form": form, "error_message": error_message}
     )
+
+
+
+def logout_view(request):
+    logout(request)
+    return redirect('home')
+
+
+@login_required
+def profile_view(request):
+    return HttpResponse(f"مرحبا {request.user.username}! دي صفحة البروفايل بتاعتك.")

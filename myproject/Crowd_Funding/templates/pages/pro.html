@@ -45,16 +45,47 @@ over US$34 billion was raised worldwide by crowdfunding.</p>
     </div>
   </div>
 </div>
+
+<!-- ===== About Us Section ===== -->
+<section id="about-section" style="padding:100px 20px;  min-height:50vh;">
+  <h2>About Us</h2>
+  <p style="color: white; font-size: xx-large;">
+    Welcome to our website! 👋  
+    We are a team of passionate developers working together on amazing projects.  
+    Our goal is to build creative, scalable, and user-friendly applications. 🚀
+  </p>
+</section>
+
+
+
 <div id="navigationBar">
-<a href="{% url 'login' %}"><button id="btn">Login</button></a>
-<a href="{% url 'register' %}"><button id="btn2">Register</button></a>
-<button id="btn3">About Us</button>
-<button id="btn4">Contact Us</button>
-<img src="/media/logo-for-a-fundraising-word.png" alt="Logo" id="logo">
+  {% if user.is_authenticated %}
+      <div style="display: flex; align-items: center; gap: 15px;">
+          <a href="{% url 'profile' %}" style="text-decoration: none; color: rgb(247, 246, 246);">
+              {% if user.picture %}
+                  <img src="{{ user.picture.url }}" alt="Profile Picture" style="width:40px; height:40px; border-radius:50%;">
+              {% else %}
+                  <img src="/static/images/default.png" alt="Default Profile" style="width:40px; height:40px; border-radius:50%;">
+              {% endif %}
+              {{ user.username }}
+          </a>
+          <a href="{% url 'logout' %}"><button id="btn">Logout</button></a>
+      </div>
+  {% else %}
+      <a href="{% url 'login' %}"><button id="btn">Login</button></a>
+      <a href="{% url 'register' %}"><button id="btn2">Register</button></a>
+  {% endif %}
+
+    <a href="#about-section"><button id="btn3">About Us</button></a>
+    <a href="#"><button id="btn4">Projects</button></a>
+  <img src="/media/logo-for-a-fundraising-word.png" alt="Logo" id="logo">
 </div>
+
+
 
 <div id="footer">
     <p id="ftext">© 2024 Crowd Funding App. All rights reserved to ITI.</p>
 </div>
 </body>
 </html>
+
