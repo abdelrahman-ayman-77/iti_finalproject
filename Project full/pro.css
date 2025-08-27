@@ -1,0 +1,291 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background-image: url("9019808.jpg");
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  text-align: center;
+}
+
+body::selection {
+  background: yellow;
+  color: rgb(1, 29, 7);
+}
+
+h1 {
+  display: inline-block;
+  color: white;
+  font-size: 50px;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  margin: 40px;
+  margin-top: 100px;
+  text-shadow: 8px 8px 16px #000000;
+  letter-spacing: 1px;
+  word-spacing: 2px;
+  font-weight: bold;
+  border: 6px solid white;
+  border-radius: 15px;
+  padding: 10px;
+  background-color: rgba(155, 25, 25, 0.326);
+}
+
+h2 {
+  display: inline-block;
+  color: white;
+  font-size: 50px;
+  font-family: Arial, Helvetica, sans-serif;
+  margin-top: 30px;
+  text-shadow: 8px 8px 16px #060505;
+  letter-spacing: 3px;
+  word-spacing: 2px;
+  font-weight: bold;
+  border: 6px solid rgb(209, 14, 14);
+  border-radius: 15px;
+  padding: 10px;
+  background-color: rgba(30, 215, 51, 0.326);
+}
+
+h2:hover {
+  background-color: rgb(209, 14, 14);
+  color: yellow;
+  border-color: yellow;
+}
+
+#text{
+  color: white;
+  font-size: 20px;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  text-shadow: 4px 4px 8px #000000;
+  letter-spacing: 1px;
+  word-spacing: 2px;
+  line-height: 1.6;
+  font-weight: bold;
+  padding-top: 30px;
+  padding-left: 15%;
+  padding-right: 15%;
+}
+
+#fee{
+  color: white;
+  font-size: 18px;
+  font-family:Verdana, Geneva, Tahoma, sans-serif;
+  text-shadow: 4px 4px 8px #000000;
+  letter-spacing: 1px;
+  word-spacing: 2px;
+  line-height: 1.6;
+  font-weight: bold;
+  padding-top: 50px;
+  
+}
+
+button, #btn, #btn2, #btn3, #btn4 {
+  background-color: white;
+  color: black;
+  font-size: 20px;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  font-weight: bold;
+  padding: 10px 20px;
+  border: 2px solid black;
+  border-radius: 10px;
+  cursor: pointer;
+  box-shadow: 4px 4px 8px #000000;
+  transition: 0.4s;
+  margin-top: 10px;
+}
+
+button:hover, #btn:hover, #btn2:hover, #btn3:hover, #btn4:hover {
+  background-color: black;
+  color: white;
+  box-shadow: 8px 8px 16px #000000;
+}
+
+button:active, #btn:active, #btn2:active, #btn3:active, #btn4:active {
+  transform: translateY(4px);
+  box-shadow: 2px 2px 4px #2f2f2f;
+}
+
+#btn2, #btn3 {
+  margin-left: 30px;
+}
+
+#btn4 {
+  margin-left: 550px;
+  margin-right: 50px;
+}
+
+#navigationBar {
+  background-color: #3a3232;
+  position: fixed;
+  top: 0;
+  width: 100vw;
+  left: 0;
+  z-index: 1000;
+  height: 70px;
+}
+
+#logo {
+  height: 60px;
+  vertical-align: middle;
+  border: 2px solid rgb(20, 20, 2);
+  margin-bottom: 7px;
+  transition: transform 0.3s ease;
+}
+
+#logo:hover {
+  transform: scale(1.1);
+}
+
+.fa-facebook, .fa-twitter, .fa-instagram, .fa-linkedin {
+  font-size: 30px;
+  cursor: pointer;
+  margin: 0 10px;
+}
+
+.fa-facebook { color: blue; }
+.fa-facebook:hover { color: darkblue; transform: scale(1.2); }
+
+.fa-twitter { color: #1DA1F2; }
+.fa-twitter:hover { color: #004c99; transform: scale(1.2); }
+
+.fa-instagram { color: #C13584; }
+.fa-instagram:hover { color: #cc0066; transform: scale(1.2); }
+
+.fa-linkedin { color: #0A66C2; }
+.fa-linkedin:hover { color: #003366; transform: scale(1.2); }
+
+#footer {
+  background-color: #3a3232;
+  width: 100%;
+  height: 100px;
+  border: 4px dotted white;
+}
+
+#ftext {
+  color: white;
+  font-size: 20px;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  text-shadow: 4px 4px 8px #000000;
+  letter-spacing: 1px;
+  word-spacing: 2px;
+  padding-top: 10px;
+  line-height: 1.6;
+  font-weight: bold;
+}
+
+.slider-container {
+  width: 100%;
+  overflow-x: auto;
+  overflow-y: hidden;
+  scroll-snap-type: x mandatory;
+  scroll-behavior: smooth;
+  padding: 20px;
+  background-color: transparent;
+}
+
+.slider-container::-webkit-scrollbar {
+  display: none;
+}
+
+.slider {
+  display: flex;
+  gap: 20px;
+}
+
+.all {
+  flex: 0 0 400px;
+  scroll-snap-align: start;
+  background-color: rgb(198, 225, 248);
+  border-radius: 10px;
+  padding: 15px;
+  margin-left: 5%;
+  width:30%;
+  box-shadow: 0 0 10px rgba(0,0,0,0.1);
+}
+
+.img {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+  border-radius: 8px;
+  transition: transform 0.3s ease;
+}
+
+.img:hover {
+  transform: scale(1.06);
+}
+
+#mainGP, #mainGP2, #mainGP3 {
+  color: black;
+  font-size: 30px;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  word-spacing: 2px;
+  line-height: 1.6;
+  font-weight: bold;
+  background-color: yellow;
+  margin-top: 10px;
+  padding: 0px;
+  border-radius: 10px;
+  box-shadow: 4px 4px 8px #000000;
+}
+
+#subGP, #subGP2, #subGP3 {
+  color: black;
+  font-size: 15px;
+  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+  word-spacing: 2px;
+  line-height: 1.6;
+  font-weight: lighter;
+  margin-top: 10px;
+}
+
+#sbtn1, #sbtn2, #sbtn3 {
+  background-color: yellow;
+  color: black;
+  font-size: 20px;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  font-weight: bold;
+  border: 2px solid black;
+  border-radius: 10px;
+  cursor: pointer;
+  box-shadow: 4px 4px 8px #000000;
+  transition: 0.4s;
+}
+
+#sbtn1:hover, #sbtn2:hover, #sbtn3:hover {
+  background-color: black;
+  color: white;
+  box-shadow: 8px 8px 16px #000000;
+}
+
+#sbtn1:active, #sbtn2:active, #sbtn3:active {
+  transform: translateY(4px);
+  box-shadow: 2px 2px 4px #2f2f2f;
+}
+
+.R1 {
+  font-weight: bolder;
+  margin-top: 10px;
+}
+
+#div1 {
+  margin-top: 30px;
+  height: 150px;
+  width: 70%;
+  border: 4px solid white;
+  border-radius: 15px;
+  display: inline-block;
+  background-color: rgba(162, 157, 66, 0.326);
+  box-shadow: 8px 8px 16px #000000;
+  margin-left: 15%;
+  margin-right: 15%;
+}
+
+#ftext {
+   margin-top: 18px;
+   font-size: 25px;
+}
