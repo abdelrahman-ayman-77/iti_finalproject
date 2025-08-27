@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Edit Profile</title>
+  <link rel="stylesheet" href="/media/register.css"> 
+  <link rel="stylesheet" href="CreateProject.css">
+  <link rel="icon" type="image/png" href="logo for a fundraising.png">
+</head>
+<body>
+<div class="container">
+    
+    <div class="left-panel">
+        <h2>You can update your info any time</h2>
+    </div>
+
+    <div class="right-panel">
+        <form method="post" action="{% url 'edit_profile' %}" class="register-form" enctype="multipart/form-data">
+            {% csrf_token %}
+            <h2>Edit Your Profile</h2>
+
+            {{ form.as_p }}
+
+            <label for="email">Email (not editable):</label>
+            <input type="email" id="email" name="email" value="{{ user.email }}" readonly>
+
+            <label for="new_password">New Password (optional):</label>
+            <input type="password" id="new_password" name="new_password">
+
+            <label for="confirm_new_password">Confirm New Password:</label>
+            <input type="password" id="confirm_new_password" name="confirm_new_password">
+
+            {% if error_message %}
+              <p style="color: red;">{{ error_message }}</p>
+            {% endif %}
+
+            <button type="submit" class="register-btn">Save Changes</button>
+        </form>
+
+        <form method="post" action="{% url 'delete_account' %}" style="margin-top: 15px;">
+            {% csrf_token %}
+            <button type="submit" class="register-btn" style="background-color: red;">Delete Account</button>
+        </form>
+
+        <a href="{% url 'home' %}">
+            <button id="home">Homepage</button>
+        </a>
+
+        <p class="login-link"><a href="{% url 'logout' %}">Logout</a></p>
+    </div>
+</div>
+</body>
+</html>
