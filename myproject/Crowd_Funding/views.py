@@ -7,4 +7,9 @@ from .models import Project
 
 
 def home(request):
-    return HttpResponse("Welcome to the Crowd Funding Platform 🚀")
+    return render(request,'pages/pro.html')
+
+def login_view(request):
+    return render(request,'pages/login.html')
+def register(request):
+    return render(request,'pages/register.html')

@@ -4,9 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Crowd Funding App</title>
-    <link rel="stylesheet" href="pro.css">
+    <link rel="stylesheet" href="/media/pro.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="icon" type="image/png" href="logo for a fundraising.png">
+    <link rel="icon" type="image/png" href="/media/logo-for-a-fundraising.png">
 </head>
 <body>
     <h1>Crowd Funding App</h1>
@@ -21,7 +21,7 @@ over US$34 billion was raised worldwide by crowdfunding.</p>
 <div class="slider-container">
   <div class="slider">
     <div class="all">
-      <img src="Gaza.webp" style="width: 100%; height: 400px" class="img">
+      <img src="/media/Gaza.webp" style="width: 100%; height: 400px" class="img">
       <p id="mainGP">Help Our brothers!</p>
       <p id="subGP">Help the people of Gaza who are suffering from the war and need your help!</p>
       <p class="R1"> Rating: ⭐⭐⭐⭐⭐</p>
@@ -29,7 +29,7 @@ over US$34 billion was raised worldwide by crowdfunding.</p>
     </div>
 
     <div class="all">
-      <img src="Cancer kids.jpeg" style="width: 100%; height: 400px" class="img">
+      <img src="/media/Cancer kids.jpeg" style="width: 100%; height: 400px" class="img">
       <p id="mainGP2">Help Cancer Kids!</p>
       <p id="subGP2">Help the kids who are suffering from cancer to conquer that tough challenge !</p>
       <p class="R1"> Rating: ⭐⭐⭐⭐⭐</p>
@@ -37,7 +37,7 @@ over US$34 billion was raised worldwide by crowdfunding.</p>
     </div>
 
     <div class="all" id="third">
-      <img src="clean-water-campaign-design.jpg" style="width: 100%; height: 400px" class="img">
+      <img src="/media/clean-water-campaign-design.jpg" style="width: 100%; height: 400px" class="img">
       <p id="mainGP3">Help to get clean water!</p>
       <p id="subGP3">Help the people who are suffering from lack of clean water and need a helping hand !</p>
       <p class="R1"> Rating: ⭐⭐⭐⭐</p>
@@ -46,15 +46,11 @@ over US$34 billion was raised worldwide by crowdfunding.</p>
   </div>
 </div>
 <div id="navigationBar">
-<a href="login.html"><button id="btn">Login</button></a>
-<a href="register.html"><button id="btn2">Register</button></a>
+<a href="{% url 'login' %}"><button id="btn">Login</button></a>
+<a href="{% url 'register' %}"><button id="btn2">Register</button></a>
 <button id="btn3">About Us</button>
 <button id="btn4">Contact Us</button>
-<img src="logo for a fundraising word.png" alt="Logo" id="logo">
-<i class="fab fa-facebook"></i>
-<i class="fab fa-twitter"></i>
-<i class="fab fa-instagram"></i>
-<i class="fab fa-linkedin"></i>
+<img src="/media/logo-for-a-fundraising-word.png" alt="Logo" id="logo">
 </div>
 
 <div id="footer">

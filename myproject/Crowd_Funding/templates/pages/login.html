@@ -4,13 +4,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login</title>
-    <link rel="stylesheet" href="login.css">
-    <link rel="icon" type="image/png" href="logo for a fundraising.png">
+    <link rel="stylesheet" href="/media/login.css">
+    <link rel="icon" type="image/png" href="/media/logo for a fundraising.png">
 </head>
 <body>
 <div class="container">
     <div class="left-panel">
-      <img src="illustration2.png" id="img2" alt="Teamwork Illustration" />
+      <img src="/media/illustration2.png" id="img2" alt="Teamwork Illustration" />
       <h2>Welcome Back! Let's Continue This Great Journey Together🥰</h2>
     </div>
 
@@ -26,9 +26,9 @@
 
         <button type="submit" class="login-btn">Login</button>
 
-        <p class="register-link">Don't have an account? <a href="register.html">Register</a></p>
+        <p class="register-link">Don't have an account? <a href="{% url 'register' %}">Register</a></p>
       </form>
-        <a href="pro.html"> <button id="home">Homepage</button> </a>
+        <a href="{% url 'home' %}"> <button id="home">Homepage</button> </a>
     </div>
   </div>
 
