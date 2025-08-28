@@ -1,7 +1,7 @@
 from django.shortcuts import redirect, render
 from django.http import HttpResponse
-from .forms import CustomUserForm ########
-from .models import Project
+from .forms import CustomUserForm , ProjectForm ,ProjectPictureForm ,ProjectTagForm
+from .models import Project, ProjectPicture, ProjectTag
 
 from django.contrib.auth import authenticate, login
 from django.contrib import messages
@@ -42,12 +42,6 @@ def login_view(request):
     return render(request, "pages/login.html")
 
 
-
-
-
-
-
-
 def register(request):
     error_message = None
     if request.method == "POST":
@@ -79,6 +73,37 @@ def logout_view(request):
     logout(request)
     return redirect('home')
 
+@login_required
+def add_project(request):
+    if request.method == "POST":
+        project_form = ProjectForm(request.POST)
+        picture_form = ProjectPictureForm(request.POST, request.FILES)
+        tag_form = ProjectTagForm(request.POST)
+        if project_form.is_valid() and picture_form.is_valid() and tag_form.is_valid():
+            project = project_form.save(commit=False)
+            project.creator = request.user  
+            project.save()
+
+            picture = picture_form.save(commit=False)
+            picture.project = project
+            picture.save()
+
+            tags_str = tag_form.cleaned_data["tags"]
+            tags = [t.strip() for t in tags_str.split(",") if t.strip()]
+            for tag in tags:
+                ProjectTag.objects.create(project=project, tag=tag)
+
+            return redirect("home")  
+    else:
+        project_form = ProjectForm()
+        picture_form = ProjectPictureForm()
+        tag_form = ProjectTagForm()
+
+    return render(request, "pages/Createproject.html", {
+        "project_form": project_form,
+        "picture_form": picture_form,
+        "tag_form": tag_form,
+    })
 
 @login_required
 def profile_view(request):
