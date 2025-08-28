@@ -17,6 +17,10 @@ over US$34 billion was raised worldwide by crowdfunding.</p>
 <div id="div1">
     <pre id="fee"> ⚡ No fee to start funding   ⏱ One donation is made every minute   🔝 2K fundraisers daily</pre>
 </div>
+{% if user.is_authenticated %}
+<a href="{% url 'addproject' %}"><button id="btn">add project</button></a>
+{% endif %}
+<br>
 <h2>Top 3 Projects 🚀</h2>
 <div class="slider-container">
   <div class="slider">
