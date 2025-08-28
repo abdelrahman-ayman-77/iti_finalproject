@@ -1,8 +1,8 @@
-from django.shortcuts import redirect, render
+from django.shortcuts import get_object_or_404, redirect, render
 from django.http import HttpResponse
 from .forms import CustomUserForm , ProjectForm ,ProjectPictureForm ,ProjectTagForm
-from .models import Project, ProjectPicture, ProjectTag
-
+from .models import Donation, Project, ProjectPicture, ProjectTag ,Comment, Rating
+from django.db.models import Avg
 from django.contrib.auth import authenticate, login
 from django.contrib import messages
 from django.contrib.auth.models import User
@@ -107,4 +107,57 @@ def add_project(request):
 
 @login_required
 def profile_view(request):
-    return HttpResponse(f"مرحبا {request.user.username}! دي صفحة البروفايل بتاعتك.")
+    user = request.user
+    return render(request, "pages/profile.html", {"user": user})
+@login_required
+def project_detail(request,project_id):
+    project = get_object_or_404(Project, id=project_id)
+    comments = project.comments.all()
+    donations = project.donations.all()
+     # get current user's rating (if exists)
+    user_rating = Rating.objects.filter(project=project, user=request.user).first()
+    user_rating_value = user_rating.rating if user_rating else 0
+    avg_rating = project.ratings.aggregate(avg=Avg("rating"))["avg"]
+    return render(request, "pages/project_detail.html", {
+        "project": project,
+        "comments": comments,
+        "donations": donations,
+    })
+
+@login_required
+def donate(request, project_id):
+    project = get_object_or_404(Project, id=project_id)
+    if request.method == "POST":
+        amount = request.POST.get("amount")
+        if amount:
+            Donation.objects.create(
+                project=project,
+                user=request.user,
+                amount=amount
+            )
+    return redirect("project_detail", project_id=project.id)
+
+@login_required
+def add_comment(request, project_id):
+    project = get_object_or_404(Project, id=project_id)
+    if request.method == "POST":
+        content = request.POST.get("content")
+        if content:
+            Comment.objects.create(
+                project=project,
+                user=request.user,
+                content=content
+            )
+    return redirect("project_detail", project_id=project.id)
+
+def rate_project(request, project_id):
+    project = get_object_or_404(Project, id=project_id)
+    if request.method == "POST":
+        rating_value = request.POST.get("rating")
+        if rating_value:
+            rating_obj, created = Rating.objects.update_or_create(
+                project=project,
+                user=request.user,
+                defaults={"rating": rating_value}
+            )
+    return redirect("project_detail", project_id=project.id)

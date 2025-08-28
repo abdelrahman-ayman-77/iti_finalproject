@@ -10,6 +10,10 @@ urlpatterns = [
     path('logout/', views.logout_view, name='logout'),
     path("profile/", views.profile_view, name="profile"),
     path("addproject/", views.add_project, name="addproject"),
+    path("project_detail/<int:project_id>/", views.project_detail, name="project_detail"),
+    path("project/<int:project_id>/donate/", views.donate, name="donate"),
+    path("project/<int:project_id>/comment/", views.add_comment, name="add_comment"),
+    path("project/<int:project_id>/rate/", views.rate_project, name="rate_project"),
 
 ]
 if settings.DEBUG:
