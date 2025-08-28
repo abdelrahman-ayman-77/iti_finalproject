@@ -111,19 +111,30 @@ def add_project(request):
 def profile_view(request):
     user = request.user
     return render(request, "pages/profile.html", {"user": user})
+
+
+
+
 @login_required
-def project_detail(request,project_id):
+def project_detail(request, project_id):
     project = get_object_or_404(Project, id=project_id)
     comments = project.comments.all()
     donations = project.donations.all()
-     # get current user's rating (if exists)
+    
+    # تقييم المستخدم الحالي (لو موجود)
     user_rating = Rating.objects.filter(project=project, user=request.user).first()
     user_rating_value = user_rating.rating if user_rating else 0
+    
+    # متوسط التقييمات
     avg_rating = project.ratings.aggregate(avg=Avg("rating"))["avg"]
+    
+    # لازم نمررهم للـ template
     return render(request, "pages/project_detail.html", {
         "project": project,
         "comments": comments,
         "donations": donations,
+        "user_rating": user_rating_value,
+        "avg_rating": avg_rating,
     })
 
 @login_required
@@ -152,6 +163,8 @@ def add_comment(request, project_id):
             )
     return redirect("project_detail", project_id=project.id)
 
+
+@login_required
 def rate_project(request, project_id):
     project = get_object_or_404(Project, id=project_id)
     if request.method == "POST":

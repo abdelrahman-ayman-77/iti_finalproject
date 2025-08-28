@@ -70,10 +70,12 @@
                 <p>
                     <strong>Tags:</strong>
                     {% for tag in project.tags.all %}
-                        <span class="badge bg-secondary">{{ tag.name }}</span>
+                        <span class="badge bg-secondary">{{ tag.tag }}</span>
                     {% endfor %}
                 </p>
             {% endif %}
+
+            
 
             <hr>
 
@@ -110,7 +112,7 @@
                         {% csrf_token %}
                         <div class="mb-3">
                             <label for="amount" class="form-label">Donation Amount</label>
-                            <input type="number" step="0.01" class="form-control" name="amount" id="amount" required>
+                            <input type="number" step="0.5" min="0" class="form-control" name="amount" id="amount" required>
                         </div>
                         <button type="submit" class="btn btn-success w-100">Donate</button>
                     </form>
@@ -125,16 +127,16 @@
                         {% csrf_token %}
                         <div class="mb-3">
                             {% for i in "12345" %}
-                                <input type="radio" name="rating" value="{{ forloop.counter }}" hidden>
-                                <label>
-                                    <span class="star {% if user_rating == forloop.counter %}selected{% endif %}">
-                                        &#9733;
-                                    </span>
+                                <input type="radio" name="rating" value="{{ forloop.counter }}" id="star{{ forloop.counter }}" hidden
+                                    {% if user_rating == forloop.counter %}checked{% endif %}>
+                                <label for="star{{ forloop.counter }}">
+                                    <span class="star {% if user_rating == forloop.counter %}selected{% endif %}">&#9733;</span>
                                 </label>
                             {% endfor %}
                         </div>
                         <button type="submit" class="btn btn-warning w-100">Submit Rating</button>
                     </form>
+
                     <p class="mt-2 text-center">
                         ⭐ Average Rating: 
                         {% if avg_rating %}
