@@ -1,0 +1,152 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{{ project.title }}</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        .project-img {
+            max-height: 250px;
+            width: 100%;
+            object-fit: cover;
+            border-radius: 8px;
+        }
+        .comment-box {
+            border-bottom: 1px solid #eee;
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+        }
+        .star {
+            font-size: 22px;
+            color: gray;
+            cursor: pointer;
+        }
+        .star.selected {
+            color: gold;
+        }
+    </style>
+</head>
+<body class="container py-4">
+
+    <div class="row">
+        <!-- LEFT COLUMN -->
+        <div class="col-lg-8">
+            <!-- Project Info -->
+            <h2>{{ project.title }}</h2>
+            <p class="text-muted">
+                Category: {{ project.category }} | 
+                Status: <span class="badge bg-info">{{ project.status }}</span>
+            </p>
+            <p>{{ project.details }}</p>
+            <p><strong>Target:</strong> ${{ project.target_amount }}</p>
+            <p><strong>Duration:</strong> {{ project.start_date|date:"M d, Y" }} → {{ project.end_date|date:"M d, Y" }}</p>
+
+            <!-- Images -->
+            {% if project.pictures.all %}
+                <div class="row mb-3">
+                    {% for pic in project.pictures.all %}
+                        <div class="col-md-4 mb-3">
+                            <img src="{{ pic.image.url }}" class="project-img" alt="Project image">
+                        </div>
+                    {% endfor %}
+                </div>
+            {% endif %}
+
+            <!-- Tags (if you have tags field) -->
+            {% if project.tags.all %}
+                <p>
+                    <strong>Tags:</strong>
+                    {% for tag in project.tags.all %}
+                        <span class="badge bg-secondary">{{ tag.name }}</span>
+                    {% endfor %}
+                </p>
+            {% endif %}
+
+            <hr>
+
+            <!-- Comments -->
+            <h4>Comments</h4>
+            {% for comment in project.comments.all %}
+                <div class="comment-box">
+                    <strong>{{ comment.user.username }}</strong> 
+                    <small class="text-muted">{{ comment.created_at|date:"M d, Y H:i" }}</small>
+                    <p>{{ comment.content }}</p>
+                </div>
+            {% empty %}
+                <p class="text-muted">No comments yet.</p>
+            {% endfor %}
+
+            <!-- Add Comment -->
+            <form method="POST" action="{% url 'add_comment' project.id %}">
+                {% csrf_token %}
+                <div class="mb-3">
+                    <label for="content" class="form-label">Add a Comment</label>
+                    <textarea class="form-control" id="content" name="content" rows="3" required></textarea>
+                </div>
+                <button type="submit" class="btn btn-primary">Post Comment</button>
+            </form>
+        </div>
+
+        <!-- RIGHT COLUMN -->
+        <div class="col-lg-4">
+            <!-- Donation Form -->
+            <div class="card shadow-sm mb-4">
+                <div class="card-body">
+                    <h4 class="card-title">Donate</h4>
+                    <form method="POST" action="{% url 'donate' project.id %}">
+                        {% csrf_token %}
+                        <div class="mb-3">
+                            <label for="amount" class="form-label">Donation Amount</label>
+                            <input type="number" step="0.01" class="form-control" name="amount" id="amount" required>
+                        </div>
+                        <button type="submit" class="btn btn-success w-100">Donate</button>
+                    </form>
+                </div>
+            </div>
+
+            <!-- Ratings -->
+            <div class="card shadow-sm">
+                <div class="card-body">
+                    <h4 class="card-title">Rate this Project</h4>
+                    <form method="POST" action="{% url 'rate_project' project.id %}">
+                        {% csrf_token %}
+                        <div class="mb-3">
+                            {% for i in "12345" %}
+                                <input type="radio" name="rating" value="{{ forloop.counter }}" hidden>
+                                <label>
+                                    <span class="star {% if user_rating == forloop.counter %}selected{% endif %}">
+                                        &#9733;
+                                    </span>
+                                </label>
+                            {% endfor %}
+                        </div>
+                        <button type="submit" class="btn btn-warning w-100">Submit Rating</button>
+                    </form>
+                    <p class="mt-2 text-center">
+                        ⭐ Average Rating: 
+                        {% if avg_rating %}
+                            {{ avg_rating|floatformat:1 }} / 5
+                        {% else %}
+                            No ratings yet
+                        {% endif %}
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Highlight stars when clicked
+        document.querySelectorAll('.star').forEach((star, index, stars) => {
+            star.addEventListener('click', () => {
+                stars.forEach(s => s.classList.remove('selected'));
+                for (let i = 0; i <= index; i++) {
+                    stars[i].classList.add('selected');
+                }
+            });
+        });
+    </script>
+
+</body>
+</html>
