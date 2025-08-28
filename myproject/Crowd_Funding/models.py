@@ -55,6 +55,14 @@ class Project(models.Model):
 
     featured = models.BooleanField(default=False)  
 
+    def total_donations(self):
+        return sum(d.amount for d in self.donations.all())
+
+    def donation_progress(self):
+        if self.target_amount > 0:
+            return (self.total_donations() / self.target_amount) * 100
+        return 0
+
 
 
 class ProjectPicture(models.Model):

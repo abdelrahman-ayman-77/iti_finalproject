@@ -13,6 +13,8 @@ User = get_user_model()
 from django.contrib.auth import logout
 from django.contrib.auth.decorators import login_required
 
+from .models import Project, Category
+
 # Create your views here.
 
 
@@ -161,3 +163,29 @@ def rate_project(request, project_id):
                 defaults={"rating": rating_value}
             )
     return redirect("project_detail", project_id=project.id)
+
+
+
+
+
+
+def project_list(request):
+    query = request.GET.get("q")  # search by name
+    category_id = request.GET.get("category")  # filter by category
+
+    projects = Project.objects.all()
+
+    if query:
+        projects = projects.filter(title__icontains=query)
+
+    if category_id:
+        projects = projects.filter(category_id=category_id)
+
+    categories = Category.objects.all()
+
+    return render(request, "pages/project_list.html", {
+        "projects": projects,
+        "categories": categories,
+        "selected_category": category_id,
+        "query": query,
+    })

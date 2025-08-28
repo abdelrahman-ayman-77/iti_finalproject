@@ -40,6 +40,18 @@
             </p>
             <p>{{ project.details }}</p>
             <p><strong>Target:</strong> ${{ project.target_amount }}</p>
+            <!-- Progress bar -->
+            <div class="progress mb-2">
+                <div class="progress-bar" role="progressbar" 
+                    style="width: {{ project.donation_progress|floatformat:0 }}%;" 
+                    aria-valuenow="{{ project.donation_progress|floatformat:0 }}" 
+                    aria-valuemin="0" aria-valuemax="100">
+                    {{ project.donation_progress|floatformat:0 }}%
+                </div>
+            </div>
+            <small class="text-muted">
+                Raised: {{ project.total_donations }} / {{ project.target_amount }}
+            </small>
             <p><strong>Duration:</strong> {{ project.start_date|date:"M d, Y" }} → {{ project.end_date|date:"M d, Y" }}</p>
 
             <!-- Images -->
@@ -150,3 +162,5 @@
 
 </body>
 </html>
+
+
