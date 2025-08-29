@@ -100,9 +100,17 @@
                 </div>
                 <button type="submit" class="btn btn-primary">Post Comment</button>
             </form>
+            {% if project.creator == user and project.status != "completed" and project.status != "cancelled" and project.donation_progress < 25 %}
+            <br>
+            <a href="{% url 'cancel_project' project.id %}"><button class="btn btn-danger">Cancel project</button></a>
+            <br>
+            {% endif %}
+            <br>
+            <a href="{% url 'home' %}"><button class="btn btn-dark">Home Page</button></a>
         </div>
 
         <!-- RIGHT COLUMN -->
+         {% if project.creator != user and project.status != "cancelled" and project.status != "completed" %}
         <div class="col-lg-4">
             <!-- Donation Form -->
             <div class="card shadow-sm mb-4">
@@ -147,7 +155,9 @@
                     </p>
                 </div>
             </div>
+            
         </div>
+        {% endif %}
     </div>
 
     <script>

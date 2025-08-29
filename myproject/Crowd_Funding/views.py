@@ -1,3 +1,4 @@
+from django.utils import timezone
 from django.shortcuts import get_object_or_404, redirect, render
 from django.http import HttpResponse
 from .forms import CustomUserForm , ProjectForm ,ProjectPictureForm ,ProjectTagForm
@@ -121,6 +122,10 @@ def project_detail(request, project_id):
     comments = project.comments.all()
     donations = project.donations.all()
     
+    if (project.total_donations()>=project.target_amount) or (project.end_date < timezone.now()):
+        project.status="completed"
+        project.save()
+        
     # تقييم المستخدم الحالي (لو موجود)
     user_rating = Rating.objects.filter(project=project, user=request.user).first()
     user_rating_value = user_rating.rating if user_rating else 0
@@ -179,8 +184,11 @@ def rate_project(request, project_id):
 
 
 
-
-
+def cancel_project(request, project_id):
+    project = get_object_or_404(Project, id=project_id)
+    project.status = "cancelled"
+    project.save()
+    return redirect("project_detail", project_id=project_id)
 
 def project_list(request):
     query = request.GET.get("q")  # search by name

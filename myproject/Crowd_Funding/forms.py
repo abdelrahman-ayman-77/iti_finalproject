@@ -10,16 +10,16 @@ class CustomUserForm(forms.ModelForm):
         model = CustomUser
         fields = ["username","first_name","last_name", "email", "phone_number", "picture", "password"]
 
-CATEGORY_CHOICES = [
-    ("education", "Education"),
-    ("health", "Health"),
-    ("tech", "Tech"),
-    ("arts", "Arts"),
-    ("community", "Community"),
-]
+# CATEGORY_CHOICES = [
+#     ("education", "Education"),
+#     ("health", "Health"),
+#     ("tech", "Tech"),
+#     ("arts", "Arts"),
+#     ("community", "Community"),
+# ]
 
 class ProjectForm(forms.ModelForm):
-    category = forms.ChoiceField(choices=CATEGORY_CHOICES)  # هنا خليتها dropdown جاهزة
+    # category = forms.ChoiceField(choices=CATEGORY_CHOICES)  # هنا خليتها dropdown جاهزة
 
     class Meta:
         model = Project
