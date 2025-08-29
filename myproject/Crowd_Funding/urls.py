@@ -15,6 +15,8 @@ urlpatterns = [
     path("project/<int:project_id>/comment/", views.add_comment, name="add_comment"),
     path("project/<int:project_id>/rate/", views.rate_project, name="rate_project"),
     path("project/<int:project_id>/cancel/", views.cancel_project, name="cancel_project"),
+    path("project/<int:project_id>/report/", views.report_project, name="report_project"),
+    path("delete-account/", views.delete_account, name="delete_account"),
     path("projects/", views.project_list, name="project_list"),
 
 ]

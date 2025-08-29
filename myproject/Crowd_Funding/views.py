@@ -1,8 +1,8 @@
 from django.utils import timezone
 from django.shortcuts import get_object_or_404, redirect, render
 from django.http import HttpResponse
-from .forms import CustomUserForm , ProjectForm ,ProjectPictureForm ,ProjectTagForm
-from .models import Donation, Project, ProjectPicture, ProjectTag ,Comment, Rating
+from .forms import CustomUserForm, ProjectForm ,ProjectPictureForm ,ProjectTagForm
+from .models import CommentReport, Donation, Project, ProjectPicture, ProjectReport, ProjectTag ,Comment, Rating
 from django.db.models import Avg
 from django.contrib.auth import authenticate, login
 from django.contrib import messages
@@ -210,3 +210,31 @@ def project_list(request):
         "selected_category": category_id,
         "query": query,
     })
+
+@login_required
+def report_project(request, project_id):
+    project = get_object_or_404(Project, id=project_id)
+
+    if request.method == "POST":
+        description = request.POST.get("description")
+        if description.strip():  # make sure it's not empty
+            ProjectReport.objects.create(
+                reporter=request.user,
+                project=project,
+                description=description,
+            )
+            messages.success(request, "Your report has been submitted.")
+            return redirect("project_detail", project_id=project.id)
+        else:
+            messages.error(request, "Description is required.")
+
+    return render(request, "report_project.html", {"project": project})
+
+def delete_account(request):
+    if request.method == "POST":
+        user = request.user
+        user.delete()
+        messages.success(request, "Your account has been deleted successfully.")
+        return redirect("home")  # change to your home page
+    return redirect("profile", user_id=request.user.id)
+

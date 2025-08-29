@@ -98,3 +98,23 @@ class Rating(models.Model):
     rating = models.PositiveSmallIntegerField()  
     created_at = models.DateTimeField(auto_now_add=True)
 
+class CommentReport(models.Model):
+    REPORT_REASONS = [
+        ("spam", "Spam"),
+        ("inappropriate", "Inappropriate Content"),
+        ("fraud", "Fraud/Misleading"),
+        ("hate", "Hate Speech"),
+        ("other", "Other"),
+    ]
+
+    reporter = models.ForeignKey(CustomUser, on_delete=models.CASCADE, related_name="comment_reports")
+    comment = models.ForeignKey(Comment, on_delete=models.CASCADE, related_name="reports")
+    reason = models.CharField(max_length=50, choices=REPORT_REASONS)
+    description = models.TextField(blank=True, null=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+
+class ProjectReport(models.Model):
+    reporter = models.ForeignKey(CustomUser, on_delete=models.CASCADE, related_name="project_reports")
+    project = models.ForeignKey(Project, on_delete=models.CASCADE, related_name="reports")
+    description = models.TextField()  # user must write why they report
+    created_at = models.DateTimeField(auto_now_add=True)

@@ -36,7 +36,14 @@
             <h2>{{ project.title }}</h2>
             <p class="text-muted">
                 Category: {{ project.category }} | 
-                Status: <span class="badge bg-info">{{ project.status }}</span>
+                Status: 
+                {% if project.status == "cancelled" %}
+                <span class="badge bg-warning">{{ project.status }}</span>
+                {% elif project.status == "completed" %}
+                <span class="badge bg-secondary">{{ project.status }}</span>
+                {% else %}
+                <span class="badge bg-success">{{ project.status }}</span>
+                {% endif %}
             </p>
             <p>{{ project.details }}</p>
             <p><strong>Target:</strong> ${{ project.target_amount }}</p>
@@ -105,6 +112,14 @@
             <a href="{% url 'cancel_project' project.id %}"><button class="btn btn-danger">Cancel project</button></a>
             <br>
             {% endif %}
+            <!-- Report Project Button -->
+       {% if project.creator != user %}
+        <br>
+         <button type="button" class="btn btn-secondary" onclick="openReportPrompt({{ project.id }})">
+           🚩 Report Project
+         </button>
+        <br>
+       {% endif %}
             <br>
             <a href="{% url 'home' %}"><button class="btn btn-dark">Home Page</button></a>
         </div>
@@ -170,8 +185,21 @@
                 }
             });
         });
+        function openReportPrompt(projectId) {
+                let description = prompt("Why are you reporting this project?");
+                if (description && description.trim() !== "") {
+                document.getElementById("reportDescription").value = description;
+                document.getElementById("reportForm").submit();
+                } else if (description !== null) {
+                alert("You must provide a description.");
+                }
+ }
     </script>
-
+<!-- Hidden Report Form -->
+<form id="reportForm" method="POST" action="{% url 'report_project' project.id %}" style="display:none;">
+    {% csrf_token %}
+    <input type="hidden" name="description" id="reportDescription">
+</form>
 </body>
 </html>
 

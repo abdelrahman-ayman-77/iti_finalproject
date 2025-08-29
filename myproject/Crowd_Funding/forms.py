@@ -45,4 +45,4 @@ class ProjectTagForm(forms.Form):
         max_length=255,
         required=False,
         help_text="Enter tags separated by commas",
-    )         
+    )
