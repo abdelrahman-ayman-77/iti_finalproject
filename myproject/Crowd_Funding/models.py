@@ -9,7 +9,7 @@ egypt_phone_validator = RegexValidator(
 
 class CustomUser(AbstractUser):
     phone_number = models.CharField(max_length=20,validators=[egypt_phone_validator],blank=True, null=True)  
-    picture = models.ImageField(upload_to='user_pics/', blank=True, null=True)
+    picture = models.ImageField(upload_to='user_pics/', default="/project_pics/default.jpg" , blank=True, null=True)
     birthdate = models.DateField(blank=True, null=True)
     facebook_profile = models.URLField(blank=True, null=True)
     country = models.CharField(max_length=100, blank=True, null=True)

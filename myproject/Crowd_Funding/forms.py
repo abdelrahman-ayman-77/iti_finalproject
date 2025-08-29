@@ -10,16 +10,9 @@ class CustomUserForm(forms.ModelForm):
         model = CustomUser
         fields = ["username","first_name","last_name", "email", "phone_number", "picture", "password"]
 
-# CATEGORY_CHOICES = [
-#     ("education", "Education"),
-#     ("health", "Health"),
-#     ("tech", "Tech"),
-#     ("arts", "Arts"),
-#     ("community", "Community"),
-# ]
+
 
 class ProjectForm(forms.ModelForm):
-    # category = forms.ChoiceField(choices=CATEGORY_CHOICES)  # هنا خليتها dropdown جاهزة
 
     class Meta:
         model = Project
@@ -35,10 +28,14 @@ class ProjectForm(forms.ModelForm):
             "start_date": forms.DateTimeInput(attrs={"type": "datetime-local"}),
             "end_date": forms.DateTimeInput(attrs={"type": "datetime-local"}),
         }
+
+
 class ProjectPictureForm(forms.ModelForm):
     class Meta:
         model = ProjectPicture
         fields = ["image"]
+
+
 
 class ProjectTagForm(forms.Form):
     tags = forms.CharField(
@@ -46,3 +43,16 @@ class ProjectTagForm(forms.Form):
         required=False,
         help_text="Enter tags separated by commas",
     )
+
+
+
+class EditProfileForm(forms.ModelForm):
+    class Meta:
+        model = CustomUser
+        fields = ['username', 'first_name', 'last_name', 'email',
+                  'picture', 'phone_number', 'birthdate',
+                  'facebook_profile', 'country']
+        widgets = {
+            'birthdate': forms.DateInput(attrs={'type': 'date'}),
+            'email': forms.EmailInput(attrs={'readonly': True}),  # هنا هنخليه للعرض فقط
+        }

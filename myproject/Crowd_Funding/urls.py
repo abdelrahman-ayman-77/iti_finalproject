@@ -18,6 +18,7 @@ urlpatterns = [
     path("project/<int:project_id>/report/", views.report_project, name="report_project"),
     path("delete-account/", views.delete_account, name="delete_account"),
     path("projects/", views.project_list, name="project_list"),
+    path("edit-profile/", views.edit_profile, name="edit_profile"),
 
 ]
 if settings.DEBUG:

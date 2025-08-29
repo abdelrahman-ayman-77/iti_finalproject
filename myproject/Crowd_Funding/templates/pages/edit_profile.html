@@ -1,0 +1,64 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Profile</title>
+    <link rel="stylesheet" href="{% static 'css/edit_profile.css' %}">
+    <link rel="stylesheet" href="/media/edit_profile.css">
+</head>
+<body>
+<div class="profile-container">
+    <!-- Sidebar -->
+
+
+    <!-- Main -->
+    <main class="profile-main">
+    <h2>Edit Profile</h2>
+    <form method="post" enctype="multipart/form-data" class="profile-form">
+        {% csrf_token %}
+
+        {{ form.as_p }}
+
+        <div class="form-actions">
+        <button type="submit" class="save-btn">Save Changes</button>
+        <button type="button" class="delete-btn" onclick="confirmDelete()">Delete Account</button>
+        </div>
+    </form>
+    </main>
+
+  </div>
+
+  <!-- Delete confirm -->
+  <div id="confirm-modal" class="modal">
+    <div class="modal-content">
+      <p>Are you sure you want to delete your account? This action cannot be undone.</p>
+      <form method="post" action="{% url 'delete_account' %}">
+        {% csrf_token %}
+        <button type="submit" class="confirm-btn">Yes, Delete</button>
+      </form>
+      <button onclick="closeModal()" class="cancel-btn">Cancel</button>
+    </div>
+  </div>
+
+  <script>
+    function confirmDelete() {
+      document.getElementById('confirm-modal').style.display = 'flex';
+    }
+    function closeModal() {
+      document.getElementById('confirm-modal').style.display = 'none';
+    }
+
+    // Preview selected profile picture
+    function previewImage(event) {
+      const reader = new FileReader();
+      reader.onload = function() {
+        const output = document.getElementById('profile-preview');
+        output.src = reader.result;
+      };
+      reader.readAsDataURL(event.target.files[0]);
+    }
+  </script>
+</body>
+</html>

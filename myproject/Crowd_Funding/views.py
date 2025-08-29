@@ -1,7 +1,7 @@
 from django.utils import timezone
 from django.shortcuts import get_object_or_404, redirect, render
 from django.http import HttpResponse
-from .forms import CustomUserForm, ProjectForm ,ProjectPictureForm ,ProjectTagForm
+from .forms import CustomUserForm, EditProfileForm, ProjectForm ,ProjectPictureForm ,ProjectTagForm
 from .models import CommentReport, Donation, Project, ProjectPicture, ProjectReport, ProjectTag ,Comment, Rating
 from django.db.models import Avg
 from django.contrib.auth import authenticate, login
@@ -15,6 +15,7 @@ from django.contrib.auth import logout
 from django.contrib.auth.decorators import login_required
 
 from .models import Project, Category
+
 
 # Create your views here.
 
@@ -237,4 +238,21 @@ def delete_account(request):
         messages.success(request, "Your account has been deleted successfully.")
         return redirect("home")  # change to your home page
     return redirect("profile", user_id=request.user.id)
+
+
+
+@login_required
+def edit_profile(request):
+    user = request.user
+    if request.method == "POST":
+        form = EditProfileForm(request.POST, request.FILES, instance=user)
+        if form.is_valid():
+            form.save()
+            messages.success(request, "Profile updated successfully ✅")
+            return redirect("profile")
+    else:
+        form = EditProfileForm(instance=user)
+
+    return render(request, "pages/edit_profile.html", {"form": form})
+
 
