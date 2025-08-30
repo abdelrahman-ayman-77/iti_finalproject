@@ -89,8 +89,12 @@
             <small class="text-muted">
               Raised: {{ project.total_donations }} / {{ project.target_amount }}
             </small>
+            {% if request.user.is_authenticated %}
+              <a href="{% url 'project_detail' project.id %}" class="btn btn-primary btn-sm mt-2">View Project</a>
+            {% else %}
+              <a href="#" class="btn btn-primary btn-sm mt-2" onclick="alert('You must have an account to enter')">View Project</a>
+            {% endif %}
 
-            <a href="{% url 'project_detail' project.id %}" class="btn btn-primary btn-sm mt-2">View Project</a>
           </div>
         </div>
       </div>

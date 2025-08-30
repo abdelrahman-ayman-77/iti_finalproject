@@ -118,15 +118,7 @@ button:active, #btn:active, #btn2:active, #btn3:active, #btn4:active {
   margin-right: 50px;
 }
 
-#navigationBar {
-  background-color: #3a3232;
-  position: fixed;
-  top: 0;
-  width: 100vw;
-  left: 0;
-  z-index: 1000;
-  height: 70px;
-}
+
 
 #logo {
   height: 60px;
@@ -291,44 +283,100 @@ button:active, #btn:active, #btn2:active, #btn3:active, #btn4:active {
 }
 
 
-/* ====== User Info in Navbar ====== */
-#navigationBar .user-info {
-  display: flex;
-  align-items: center;
-  gap: 15px;
-  margin-left: 20px;
-  float: left; /* يخليها في أول الـ bar */
-}
-
-#navigationBar .user-info img {
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
-  border: 2px solid white;
-  object-fit: cover;
-  cursor: pointer;
-  transition: transform 0.3s ease;
-}
-
-#navigationBar .user-info img:hover {
-  transform: scale(1.1);
-}
-
-#navigationBar .user-info span {
-  color: white;
-  font-size: 18px;
-  font-weight: bold;
-  cursor: pointer;
-}
-
-#navigationBar .user-info span:hover {
-  text-decoration: underline;
-}
-
 #navigationBar {
-  background-color: #3a3232;
-  display: flex;
-  align-items: center;   /* يخلي العناصر في النص عموديًا */
-  justify-content: space-between; /* يوزع العناصر يمين وشمال */
-  padding: 10px 20px;
+    background-color: #3a3232;
+    position: fixed;
+    top: 0;
+    width: 100vw;
+    left: 0;
+    z-index: 1000;
+    height: 70px;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 20px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.3);
+}
+
+/* Logo */
+#navigationBar .logo-container img {
+    height: 50px;
+    cursor: pointer;
+    transition: transform 0.3s ease;
+}
+#navigationBar .logo-container img:hover {
+    transform: scale(1.05);
+}
+
+/* Navigation Buttons */
+.nav-buttons {
+    display: flex;
+    gap: 15px;
+}
+.nav-btn {
+    background-color: transparent;
+    border: 2px solid white;
+    color: white;
+    padding: 8px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: all 0.3s ease;
+}
+.nav-btn:hover {
+    background-color: white;
+    color: #3a3232;
+}
+
+/* User Info / Auth Buttons */
+.user-info {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.user-info img {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    border: 2px solid white;
+    object-fit: cover;
+    cursor: pointer;
+    transition: transform 0.3s ease;
+}
+.user-info img:hover {
+    transform: scale(1.1);
+}
+
+.user-info span {
+    color: white;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+}
+.user-info span:hover {
+    text-decoration: underline;
+}
+
+.auth-btn {
+    background-color: #555;
+    color: white;
+    border: none;
+    padding: 6px 12px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: all 0.3s ease;
+}
+.auth-btn:hover {
+    background-color: #fff;
+    color: #3a3232;
+}
+.register-btn {
+    background-color: #f39c12;
+}
+.register-btn:hover {
+    background-color: #fff;
+    color: #f39c12;
 }

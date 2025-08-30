@@ -21,7 +21,8 @@ from .models import Project, Category
 
 
 def home(request):
-    return render(request,'pages/pro.html')
+    latest_projects = Project.objects.filter(status='active').order_by('-created_at')[:3]
+    return render(request,'pages/pro.html' , {'latest_projects': latest_projects})
 
 def login_view(request):
     if request.method == "POST":
